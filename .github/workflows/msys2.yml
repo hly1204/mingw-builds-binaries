@@ -1,4 +1,4 @@
-name: x86_64 and i686 release builds
+name: x86_64 release builds
 
 on:
   push:
@@ -27,7 +27,7 @@ jobs:
       fail-fast: false
       matrix:
         arch: [x86_64]
-        threads: [posix, win32]
+        threads: [win32]
         exceptions: [seh]
         msvcrt: [msvcrt, ucrt]
 
