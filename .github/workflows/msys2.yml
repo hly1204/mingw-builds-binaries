@@ -34,7 +34,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       with:
-        repository: 'niXman/mingw-builds'
+        repository: 'hly1204/mingw-builds'
         ref: 'develop'
 
     - uses: msys2/setup-msys2@v2
