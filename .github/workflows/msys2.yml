@@ -27,7 +27,7 @@ jobs:
       fail-fast: false
       matrix:
         arch: [x86_64]
-        threads: [win32]
+        threads: [posix, win32]
         exceptions: [seh]
         msvcrt: [msvcrt, ucrt]
 
@@ -59,6 +59,7 @@ jobs:
         --enable-languages=c,c++,fortran
         --dyn-deps
         --no-multilib
+        --show-subtargets
 
     - name: Upload
       uses: actions/upload-artifact@v4
