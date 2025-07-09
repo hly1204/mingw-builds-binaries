@@ -57,8 +57,6 @@ jobs:
         --arch=${{ matrix.arch }}
         --bin-compress
         --enable-languages=c,c++,fortran
-        --dyn-deps
-        --no-gcc-lto
         --no-multilib
         --show-subtargets
 
