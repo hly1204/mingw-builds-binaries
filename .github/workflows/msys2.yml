@@ -55,14 +55,13 @@ jobs:
           --threads=${{ matrix.threads }}
           --exceptions=${{ matrix.exceptions }}
           --arch=${{ matrix.arch }}
-          --bin-compress
           --enable-languages=c,c++,fortran
           --no-multilib
 
       - name: Build CMake & Ninja
         shell: msys2 {0}
         run: |
-          export MINGW_HOME=/c/buildroot/archives/${{ matrix.arch }}-${{ matrix.threads }}-${{ matrix.exceptions }}-${{ matrix.msvcrt }}/mingw64
+          export MINGW_HOME=/c/buildroot/${{ matrix.arch }}-$(echo ${{ needs.split-tag.outputs.gcc-version }} | tr -d .)-${{ matrix.threads }}-${{ matrix.exceptions }}-${{ matrix.msvcrt }}-rt_${{ needs.split-tag.outputs.rt-version }}-rev${{ needs.split-tag.outputs.mingw-rev }}/mingw64
           export PATH=$PATH:$MINGW_HOME/bin:$MINGW_HOME/opt/bin
           wget https://github.com/Kitware/CMake/releases/download/v4.0.3/cmake-4.0.3.tar.gz
           tar -xzf cmake-4.0.3.tar.gz
@@ -75,6 +74,11 @@ jobs:
           cmake -B ninja.build -G "Unix Makefiles" -D CMAKE_BUILD_TYPE=Release -S ninja-1.13.1
           cmake --build ninja.build --parallel 4
           cmake --install ninja.build --prefix=$MINGW_HOME --strip
+
+      - name: Pack
+        shell: msys2 {0}
+        run: |
+          7z /c/buildroot/archives/${{ matrix.arch }}-${{ matrix.threads }}-${{ matrix.exceptions }}-${{ matrix.msvcrt }}/${{ matrix.arch }}-gcc-${{ needs.split-tag.outputs.gcc-version }}-${{ matrix.threads }}-${{ matrix.exceptions }}-${{ matrix.msvcrt }}-rt_${{ needs.split-tag.outputs.rt-version }}-rev${{ needs.split-tag.outputs.mingw-rev }}.7z /c/buildroot/${{ matrix.arch }}-$(echo ${{ needs.split-tag.outputs.gcc-version }} | tr -d .)-${{ matrix.threads }}-${{ matrix.exceptions }}-${{ matrix.msvcrt }}-rt_${{ needs.split-tag.outputs.rt-version }}-rev${{ needs.split-tag.outputs.mingw-rev }}/mingw64
 
       - name: Upload
         uses: actions/upload-artifact@v4
