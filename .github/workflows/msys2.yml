@@ -78,7 +78,7 @@ jobs:
       - name: Pack
         shell: msys2 {0}
         run: |
-          7z /c/buildroot/archives/${{ matrix.arch }}-${{ matrix.threads }}-${{ matrix.exceptions }}-${{ matrix.msvcrt }}/${{ matrix.arch }}-gcc-${{ needs.split-tag.outputs.gcc-version }}-${{ matrix.threads }}-${{ matrix.exceptions }}-${{ matrix.msvcrt }}-rt_${{ needs.split-tag.outputs.rt-version }}-rev${{ needs.split-tag.outputs.mingw-rev }}.7z /c/buildroot/${{ matrix.arch }}-$(echo ${{ needs.split-tag.outputs.gcc-version }} | tr -d .)-${{ matrix.threads }}-${{ matrix.exceptions }}-${{ matrix.msvcrt }}-rt_${{ needs.split-tag.outputs.rt-version }}-rev${{ needs.split-tag.outputs.mingw-rev }}/mingw64
+          7z a /c/buildroot/archives/${{ matrix.arch }}-${{ matrix.threads }}-${{ matrix.exceptions }}-${{ matrix.msvcrt }}/${{ matrix.arch }}-gcc-${{ needs.split-tag.outputs.gcc-version }}-${{ matrix.threads }}-${{ matrix.exceptions }}-${{ matrix.msvcrt }}-rt_${{ needs.split-tag.outputs.rt-version }}-rev${{ needs.split-tag.outputs.mingw-rev }}.7z /c/buildroot/${{ matrix.arch }}-$(echo ${{ needs.split-tag.outputs.gcc-version }} | tr -d .)-${{ matrix.threads }}-${{ matrix.exceptions }}-${{ matrix.msvcrt }}-rt_${{ needs.split-tag.outputs.rt-version }}-rev${{ needs.split-tag.outputs.mingw-rev }}/mingw64
 
       - name: Upload
         uses: actions/upload-artifact@v4
