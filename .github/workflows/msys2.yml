@@ -71,7 +71,7 @@ jobs:
           cd ..
           wget https://github.com/ninja-build/ninja/archive/refs/tags/v1.13.1.tar.gz
           tar -xzf v1.13.1.tar.gz
-          cmake -B ninja.build -G "Unix Makefiles" -D CMAKE_BUILD_TYPE=Release -S ninja-1.13.1
+          cmake -B ninja.build -G "Unix Makefiles" -D CMAKE_BUILD_TYPE=Release -D CMAKE_C_COMPILER=gcc -D CMAKE_CXX_COMPILER=g++ -S ninja-1.13.1
           cmake --build ninja.build --parallel 4
           cmake --install ninja.build --prefix=$MINGW_HOME --strip
 
